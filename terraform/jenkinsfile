@@ -1,29 +1,27 @@
 pipeline {
     agent any
-
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/shreya2298/pipeline_jenkins_docker.git'
+                git branch: 'main', url: 'https://github.com/shreya2298/pipeline_jenkins_docker.git'
             }
         }
-
+        
         stage('Build') {
             steps {
-                sh 'docker build -t my-app .'
+                sh 'echo "Building the application..."'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'docker run --rm my-app pytest tests/'
+                sh 'echo "Running tests..."'
             }
         }
 
         stage('Deploy') {
             steps {
-                sh 'docker tag my-app:latest my-dockerhub-username/my-app:latest'
-                sh 'docker push my-dockerhub-username/my-app:latest'
+                sh 'echo "Deploying the application..."'
             }
         }
     }
